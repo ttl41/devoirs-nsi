@@ -23,8 +23,8 @@ def remove_grade(grades: List, weights: List, rank: int):
 
 def get_average(grades: List, weights: List):
   numerateur = 0
+  rank = 0
   for grade in grades:
-    rank = 0
     numerateur += grade * weights[rank]
     rank += 1
   average = numerateur / sum(weights)
@@ -37,8 +37,8 @@ def count_grades(grades: List, threshold=10.0) -> int:
       grades_counted += 1
   return grades_counted
 
-def delete_list(any_list: List):
-  del any_list
+def delete_list(list_name: str):
+  del globals()[list_name]
 
 def give_mentions(grades: List[float]):
   mentions = []
@@ -52,6 +52,22 @@ def give_mentions(grades: List[float]):
     else:
       mentions.append("Aucune")
   return mentions
+
+def give_color(grades: List[float], weights: List[float]) -> str:
+  average = get_average(grades, weights)
+  red_hex = "#FF0000"
+  orange_hex = "#FFA500"
+  blue_hex = "#008BFF"
+  green_hex = "#008000"
+  if average < 10:
+    return red_hex
+  elif average < 12:
+    return orange_hex
+  elif average < 14:
+    return blue_hex
+  else:
+    return green_hex
+
 
 def save_list():
   pass

@@ -72,6 +72,9 @@ def give_color(grades: List[float], weights: List[float]) -> str:
 def save_list():
   pass
 
+def delete_list(any_list):
+  return None
+
 def save_everything(grades, weights):
   save_list(grades)
   save_list(weights)

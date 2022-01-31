@@ -1,4 +1,5 @@
 from carnetnotes import *
+
 running = True
 
 print("pro carnet de notes 2.0.69 dank memes edition ")
@@ -68,6 +69,10 @@ Q/ rien, je vais m'en aller !
     print("La couleur hexadécimale du carnet est", couleur)
 
   if choice == "8":
-    delete_list('grades')
-    delete_list('weights')
-    print("Carnet de notes supprimé !")
+    grades = delete_list(grades)
+    weights = delete_list(weights)
+    print("Carnet de notes supprimé !") 
+    
+  if choice == "q" or choice == "Q" :
+    running = False 
+

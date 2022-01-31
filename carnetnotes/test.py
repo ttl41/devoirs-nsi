@@ -69,8 +69,9 @@ Q/ rien, je vais m'en aller !
     print("La couleur hexadécimale du carnet est", couleur)
 
   if choice == "8":
-    grades = delete_list(grades)
-    weights = delete_list(weights)
+    del grades
+    del weights # je ne sais pas pourquoi,
+    # ça ne marche pas quand je fais sur une fonction
     print("Carnet de notes supprimé !") 
     
   if choice == "q" or choice == "Q" :

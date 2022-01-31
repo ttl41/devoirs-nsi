@@ -10,16 +10,26 @@ def add_grade(grades: List, weights: List, grade: float, weight=1.0):
   return grades.append(grade), weights.append(weight)
 
 def edit_grade(grades: List, rank: int, new_grade: float):
-  grades[rank] = new_grade
-  return grades
+  try:
+   grades[rank] = new_grade
+   return grades
+  except IndexError:
+    print ("Il n'y a pas de note à ce rang, impossible à modifier")
+
 
 def edit_weight(weights: List, rank: int, new_weight: float):
-  weights[rank] = new_weight
-  return weights
+  try: 
+   weights[rank] = new_weight
+   return weights
+  except IndexError: 
+    print ("Il n'y a pas de coeff à ce rang, impossible de modifier")
 
 def remove_grade(grades: List, weights: List, rank: int):
-  grades.pop(rank)
-  weights.pop(rank)
+  try:
+    grades.pop(rank)
+    weights.pop(rank)
+  except IndexError:
+    print("Il n'y a pas de notes à ce rang !")
 
 def get_average(grades: List, weights: List):
   numerateur = 0
@@ -27,7 +37,10 @@ def get_average(grades: List, weights: List):
   for grade in grades:
     numerateur += grade * weights[rank]
     rank += 1
-  average = numerateur / sum(weights)
+  try:
+    average = numerateur / sum(weights)
+  except ZeroDivisionError:
+    average = "Il n'y a pas de notes, impossible de donner la moyenne !"
   return average
 
 def count_grades(grades: List, threshold=10.0) -> int:

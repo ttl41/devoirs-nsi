@@ -2,7 +2,7 @@ from carnetnotes import *
 
 running = True
 
-print("pro carnet de notes 2.0.69 dank memes edition ")
+print("Carnet de Notes NSI")
 
 while running:
 

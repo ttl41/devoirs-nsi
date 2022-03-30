@@ -1,2 +1,2 @@
 language = "python3"
-run = "python3 carnetnotes/test.py"
+run = "cd ~/devoirs-nsi/projetcsv && python3 ~/devoirs-nsi/projetcsv/main.py"

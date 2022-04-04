@@ -1,6 +1,5 @@
 import csv
 from pprint import pprint
-from collections import OrderedDict
 
 def load_file(filename):
   container = []
@@ -82,7 +81,38 @@ def two_best_movies(liste):
   profitable_movies = list(profitable_movies.items())
   profitable_movies.sort()
   return profitable_movies 
-    
+
+def sort_by_last_digit(liste):
+  liste.sort(key=lambda x: x['release_year'][3])
+  return liste
+
+def jointure_films_acteurs(films, distribution):
+  films_acteurs = []
+  for act in distribution:
+    for film in films:
+      if act["movie_id"] == film["movie_id"]:
+        films_acteurs.append({"movie_id": film["movie_id"], "title": film["title"], "cast": act["cast"]})
+  return films_acteurs
+
+def get_cast(films_acteurs, movie_id):
+  cast = [x["cast"] for x in films_acteurs if x["movie_id"] == movie_id]
+  return cast
+
+def get_movies(films_acteurs, cast):
+  movies = [x["title"] for x in films_acteurs if x["cast"] == cast]
+  return movies
+
+def jointure_films_realisateurs(films, realisateurs):
+  films_realisateurs = []
+  for film in films:
+    found = False
+    for real in realisateurs:
+      if real["movie_id"] == film["movie_id"]:
+        films_realisateurs.append({"movie_id": film["movie_id"], "title": film["title"], "director": real["director"]})
+        found = True
+    if not found:
+      films_realisateurs.append({"movie_id": film["movie_id"], "title": film["title"], "director": ""})
+  return films_realisateurs
   
   
 def main():
@@ -93,8 +123,11 @@ def main():
   print("Nombre de films courts, moyen, longs, très longs:")
   display_list(count_runtimes(films))
   display_list(runtime_average_by_year(films))
-  display_list(sort_movies(films), 8, True)
-  display_list(two_best_movies(films))
+  display_list(sort_movies(films), 1, True)
+  display_list(two_best_movies(films), 7)
+  display_list(sort_by_last_digit(films), 1)
+  display_list(jointure_films_acteurs(films, distrib), 20)
+  display_list(jointure_films_realisateurs(films, reals), 20)
 
 if __name__ == "__main__":
   main()

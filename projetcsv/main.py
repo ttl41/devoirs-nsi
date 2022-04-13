@@ -33,14 +33,14 @@ def release_average(liste):
   return average
 
 def runtime_average(liste):
-  runtimes = [int(x['runtime']) for x in liste if x != 0]
+  runtimes = [int(x['runtime']) for x in liste if x != 0 and x != -1]
   average = round(sum(runtimes)/len(runtimes))
   return average
 
 def runtime_average_by_year(liste):
   runtimes_year = {}
   for i in liste:
-    if i['runtime'] != '0':
+    if i['runtime'] != '0' and i['runtime'] != '-1':
       try:
         runtimes_year[i['release_year']].append(int(i['runtime']))
       except KeyError:
@@ -51,7 +51,7 @@ def runtime_average_by_year(liste):
   return runtime_averages
       
 def count_runtimes(liste):
-  runtimes = [int(x['runtime']) for x in liste if x != 0]
+  runtimes = [int(x['runtime']) for x in liste if x != 0 and x != -1]
   short, medium, long, verylong = 0, 0, 0, 0
   for i in runtimes:
     if i <= 85:
@@ -65,12 +65,12 @@ def count_runtimes(liste):
   return [short, medium, long, verylong]
 
 def sort_movies(liste):
-  valid_list = [x for x in liste if x['revenue'] != '0']
+  valid_list = [x for x in liste if x['revenue'] != '0' and x["revenue"] != "-1"]
   sorted_movies = sorted(valid_list, key=lambda x: (x['release_year'], int(x['revenue'])))
   return sorted_movies
 
 def two_best_movies(liste):
-  valid_list = [x for x in liste if x['revenue'] != '0']
+  valid_list = [x for x in liste if x['revenue'] != '0' and x["revenue"] != "-1"]
   profitable_movies = {}
   for i in valid_list:
     try:

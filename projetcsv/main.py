@@ -114,6 +114,37 @@ def jointure_films_realisateurs(films, realisateurs):
       films_realisateurs.append({"movie_id": film["movie_id"], "title": film["title"], "director": ""})
   return films_realisateurs
   
+def jointure_films_acteurs_complete(films, acteurs):
+  films_acteurs = []
+  found_cast = []
+  for film in films:
+    film["cast"] = ""
+    for act in acteurs:
+      if act["movie_id"] == film["movie_id"]:
+        film["cast"] += act["cast"] + ","
+        found_cast.append(act["cast"])
+    films_acteurs.append(film)
+  for act in acteurs:
+    if act["cast"] not in found_cast: 
+      films_acteurs.append({"movie_id": act["movie_id"], "cast": act["cast"]})
+  return films_acteurs
+
+def films_sans_acteurs(films_acteurs):
+  films_sans_acteurs = []
+  for film in films_acteurs:
+    if film["cast"] == "":
+      films_sans_acteurs.append(film)
+  return films_sans_acteurs
+
+def acteurs_sans_film(films_acteurs):
+  acteurs_sans_film = []
+  for film in films_acteurs:
+    try:
+      assert film["title"] == film["title"]
+    except KeyError:
+      acteurs_sans_film.append({"cast": film["cast"], "movie_id": film["movie_id"]})
+  return acteurs_sans_film
+
   
 def main():
   films, reals, distrib = map(load_file, ["films.csv", "realisateurs.csv", "distribution.csv"])
@@ -126,8 +157,12 @@ def main():
   display_list(sort_movies(films), 1, True)
   display_list(two_best_movies(films), 7)
   display_list(sort_by_last_digit(films), 1)
-  display_list(jointure_films_acteurs(films, distrib), 20)
-  display_list(jointure_films_realisateurs(films, reals), 20)
+  #display_list(jointure_films_acteurs(films, distrib), 20)
+  #display_list(jointure_films_realisateurs(films, reals), 20)
+  #display_list(jointure_films_acteurs_complete(films, distrib), 20)
+  films_acteurs = jointure_films_acteurs_complete(films, distrib)
+  display_list(acteurs_sans_film(films_acteurs), 10)
+  display_list(films_sans_acteurs(films_acteurs), 10)
 
 if __name__ == "__main__":
   main()
